@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using Prometheus;
 using Serilog;
 using Serilog.Sinks.Fluentd;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// lab 03
 builder.Logging.ClearProviders();
 builder.Host.UseSerilog((ctx, config) =>
 {
@@ -16,7 +19,13 @@ builder.Host.UseSerilog((ctx, config) =>
 });
 
 var app = builder.Build();
+
+// lab 03
 app.UseSerilogRequestLogging();
+
+// lab 04
+app.UseMetricServer();
+app.UseHttpMetrics();
 
 var summaries = new[]
 {
